@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">RecipesApp</string>
+    <string name="splash_screen_hint">Enter a text here.</string>
+    <string name="splash_screen_start">Start</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
