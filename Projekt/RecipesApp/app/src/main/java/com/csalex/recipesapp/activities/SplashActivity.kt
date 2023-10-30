@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.HandlerThread
 import android.util.Log
 import com.csalex.recipesapp.R
 import com.csalex.recipesapp.databinding.ActivitySplashBinding
@@ -21,17 +23,30 @@ class SplashActivity : AppCompatActivity() {
 
         Log.d(TAG, "onCreate: SplashActivity created")
 
-        val binding = ActivitySplashBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+//        val binding = ActivitySplashBinding.inflate(layoutInflater)
+//        setContentView(binding.root)
+//
+//        binding.startButton.setOnClickListener {
+//            Log.d(TAG, "onCreate: Button clicked")
+//
+//            val intent = Intent(this, MainActivity::class.java)
+//            intent.putExtra("user_input", binding.userInputEditText.text.toString())
+//
+//            startActivity(intent)
+//        }
 
-        binding.startButton.setOnClickListener {
-            Log.d(TAG, "onCreate: Button clicked")
+        // Create a timer thread that switches to the main thread after 3 seconds
+        val handlerThread = HandlerThread("SplashHandlerThread", -10)
+        handlerThread.start()
 
-            val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("user_input", binding.userInputEditText.text.toString())
+        val handler = Handler(handlerThread.looper)
+        handler.postDelayed({
 
+            val intent = Intent(this@SplashActivity, MainActivity::class.java)
             startActivity(intent)
-        }
+            finish()
+
+        }, 3000)
     }
 
     override fun onStart() {

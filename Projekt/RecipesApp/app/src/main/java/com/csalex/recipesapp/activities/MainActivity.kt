@@ -3,9 +3,23 @@ package com.csalex.recipesapp.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.commit
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.csalex.recipesapp.R
 import com.csalex.recipesapp.databinding.ActivityMainBinding
+import com.csalex.recipesapp.ui.home.HomeFragment
+import com.csalex.recipesapp.ui.profile.ProfileFragment
+import com.csalex.recipesapp.ui.recipe.RecipesFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,22 +27,57 @@ class MainActivity : AppCompatActivity() {
         const val TAG = "MainActivity"
     }
 
+    private lateinit var binding : ActivityMainBinding
+
+    private lateinit var navHostFragment: NavHostFragment
+    private lateinit var navController: NavController
+    private lateinit var navView: BottomNavigationView
+
+//    private val fragmentManager: FragmentManager = supportFragmentManager
+//    private val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         Log.d(TAG, "onCreate: MainActivity created")
 
-        val binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val receivedText: String? = intent.getStringExtra("user_input")
-        binding.receivedText.text = receivedText
+        navHostFragment = supportFragmentManager.findFragmentById(R.id.mainNavHostFragment) as NavHostFragment
+        navController = navHostFragment.findNavController()
+        navView = binding.bottomNavigationView
 
-        Log.d(TAG, "Intent message (user input): $receivedText")
+        navView.setupWithNavController(navController)
 
-        Toast.makeText(this, receivedText, Toast.LENGTH_LONG).show()
+        binding.bottomNavigationView.setOnItemSelectedListener { item: MenuItem ->
+            navController.navigate(R.id.action_homeFragment_to_recipesFragment)
+            true
+        }
     }
+
+//    private fun switchFragment(item: MenuItem): Boolean {
+//        var fragment: Fragment? = null
+//
+//        when(item.itemId) {
+//            R.id.home -> {
+//                fragment = HomeFragment()
+//            }
+//            R.id.recipes -> {
+//                fragment = RecipesFragment()
+//            }
+//            R.id.profile -> {
+//                fragment = ProfileFragment()
+//            }
+//        }
+//
+//        if(fragment == null)
+//            return false
+
+//        navController.navigate(item.itemId)
+
+//        return true
+//    }
 
     override fun onStart() {
         super.onStart()
