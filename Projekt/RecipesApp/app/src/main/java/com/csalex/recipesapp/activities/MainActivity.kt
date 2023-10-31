@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 else -> return@OnItemSelectedListener true
             }
+
         })
     }
 

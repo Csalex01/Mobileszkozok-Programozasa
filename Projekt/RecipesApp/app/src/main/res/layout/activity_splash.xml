@@ -2,31 +2,33 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.SplashActivity">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context=".activities.SplashActivity"
+    android:background="@drawable/splash_background"
+>
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="278dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="25dp"
-        android:text="Where you can find the best recipes and tips to enjoy a culinary experience."
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView2"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:src="@drawable/splash_background"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:srcCompat="@drawable/splash_background"-->
+<!--        android:contentDescription="@string/splash_screen_background_image" />-->
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:text="Welcome to RecipeHub!"
+        android:text="@string/recipehub_name"
+        android:textColor="#E67C7C"
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/splashScreenLogo" />
 
@@ -35,24 +37,25 @@
         android:layout_width="252dp"
         android:layout_height="214dp"
         android:layout_marginTop="100dp"
+        android:contentDescription="@string/recipehub_logo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_launcher_foreground" />
 
     <TextView
         android:id="@+id/textView5"
-        android:layout_width="256dp"
-        android:layout_height="66dp"
-        android:layout_marginBottom="40dp"
-        android:text="&quot;Cooking is an art, but it's also a science. Learn the basics and then let your creativity take over.&quot;"
+        android:layout_width="169dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/splash_activity_quote"
         android:textAlignment="center"
-        android:textColor="#555555"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="#E67C7C"
+        android:textSize="15sp"
+        android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

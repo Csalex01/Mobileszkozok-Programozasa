@@ -23,18 +23,6 @@ class SplashActivity : AppCompatActivity() {
 
         Log.d(TAG, "onCreate: SplashActivity created")
 
-//        val binding = ActivitySplashBinding.inflate(layoutInflater)
-//        setContentView(binding.root)
-//
-//        binding.startButton.setOnClickListener {
-//            Log.d(TAG, "onCreate: Button clicked")
-//
-//            val intent = Intent(this, MainActivity::class.java)
-//            intent.putExtra("user_input", binding.userInputEditText.text.toString())
-//
-//            startActivity(intent)
-//        }
-
         // Create a timer thread that switches to the main thread after 3 seconds
         val handlerThread = HandlerThread("SplashHandlerThread", -10)
         handlerThread.start()

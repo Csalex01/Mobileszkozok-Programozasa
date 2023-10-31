@@ -4,4 +4,11 @@
     <string name="splash_screen_start">Start</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home_fragment_welcome">Welcome!</string>
+    <string name="home_fragment_description">Where you can find the best recipes and tips to enjoy a culinary experience.</string>
+    <string name="home_fragment_get_started">Get Started</string>
+    <string name="recipehub_logo">RecipeHub Logo</string>
+    <string name="recipehub_name">RecipeHub</string>
+    <string name="splash_activity_quote">\"Cooking is an art, but it\'s also a science. Learn the basics and then let your creativity take over.\"</string>
+    <string name="splash_screen_background_image">Splash screen background image</string>
 </resources>
