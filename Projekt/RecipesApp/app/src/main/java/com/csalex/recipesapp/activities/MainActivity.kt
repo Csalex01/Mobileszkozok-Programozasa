@@ -3,23 +3,11 @@ package com.csalex.recipesapp.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
-import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.commit
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.setupWithNavController
 import com.csalex.recipesapp.R
 import com.csalex.recipesapp.databinding.ActivityMainBinding
-import com.csalex.recipesapp.ui.home.HomeFragment
-import com.csalex.recipesapp.ui.profile.ProfileFragment
-import com.csalex.recipesapp.ui.recipe.RecipesFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,13 +17,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
 
-    private lateinit var navHostFragment: NavHostFragment
-    private lateinit var navController: NavController
-    private lateinit var navView: BottomNavigationView
-
-//    private val fragmentManager: FragmentManager = supportFragmentManager
-//    private val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -44,40 +25,27 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        navHostFragment = supportFragmentManager.findFragmentById(R.id.mainNavHostFragment) as NavHostFragment
-        navController = navHostFragment.findNavController()
-        navView = binding.bottomNavigationView
+        binding.bottomNavigationView.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener {
 
-        navView.setupWithNavController(navController)
+            val navController: NavController = findNavController(R.id.mainNavHostFragment)
 
-        binding.bottomNavigationView.setOnItemSelectedListener { item: MenuItem ->
-            navController.navigate(R.id.action_homeFragment_to_recipesFragment)
-            true
-        }
+            when(it.itemId) {
+                R.id.home -> {
+                    navController.navigate(R.id.homeFragment)
+                    return@OnItemSelectedListener true
+                }
+                R.id.recipes -> {
+                    navController.navigate(R.id.recipesFragment)
+                    return@OnItemSelectedListener true
+                }
+                R.id.profile -> {
+                    navController.navigate(R.id.profileFragment)
+                    return@OnItemSelectedListener true
+                }
+                else -> return@OnItemSelectedListener true
+            }
+        })
     }
-
-//    private fun switchFragment(item: MenuItem): Boolean {
-//        var fragment: Fragment? = null
-//
-//        when(item.itemId) {
-//            R.id.home -> {
-//                fragment = HomeFragment()
-//            }
-//            R.id.recipes -> {
-//                fragment = RecipesFragment()
-//            }
-//            R.id.profile -> {
-//                fragment = ProfileFragment()
-//            }
-//        }
-//
-//        if(fragment == null)
-//            return false
-
-//        navController.navigate(item.itemId)
-
-//        return true
-//    }
 
     override fun onStart() {
         super.onStart()
