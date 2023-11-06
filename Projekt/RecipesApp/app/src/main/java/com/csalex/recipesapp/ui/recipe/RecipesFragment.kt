@@ -1,11 +1,15 @@
 package com.csalex.recipesapp.ui.recipe
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import com.csalex.recipesapp.R
+import com.csalex.recipesapp.repository.recipe.RecipeRepository
+import com.csalex.recipesapp.ui.recipe.viewmodel.RecipeListViewmodel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +26,8 @@ class RecipesFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private val TAG: String? = RecipesFragment::class.simpleName
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -36,6 +42,32 @@ class RecipesFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_recipes, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+//        context?.let {
+//            val recipes = RecipeRepository.getRecipes(it)
+//
+//            Log.d(TAG, "Number of recipes: ${recipes.size}")
+//
+//            for(recipe in recipes) {
+//                Log.d(TAG, "Recipe: ${recipe.name}")
+//            }
+//        }
+
+        val viewModel: RecipeListViewmodel = ViewModelProvider(this).get(RecipeListViewmodel::class.java)
+
+        context?.let { viewModel.fetchRecipeData(it) }
+
+        viewModel.recipeList.observe(viewLifecycleOwner) { recipes ->
+            for(recipe in recipes) {
+                Log.d(TAG, "Recipe name: ${recipe.name}")
+                Log.d(TAG, "Recipe description: ${recipe.name}")
+                Log.d(TAG, "----------")
+            }
+        }
     }
 
     companion object {

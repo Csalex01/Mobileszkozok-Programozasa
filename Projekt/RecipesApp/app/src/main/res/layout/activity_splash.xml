@@ -8,18 +8,6 @@
     android:background="@drawable/splash_background"
 >
 
-<!--    <ImageView-->
-<!--        android:id="@+id/imageView2"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:src="@drawable/splash_background"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:srcCompat="@drawable/splash_background"-->
-<!--        android:contentDescription="@string/splash_screen_background_image" />-->
-
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
