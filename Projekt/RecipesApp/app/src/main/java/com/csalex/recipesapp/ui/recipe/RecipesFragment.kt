@@ -6,10 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.csalex.recipesapp.R
-import com.csalex.recipesapp.repository.recipe.RecipeRepository
-import com.csalex.recipesapp.ui.recipe.viewmodel.RecipeListViewmodel
+import com.csalex.recipesapp.repository.recipe.model.RecipeModel
+import com.csalex.recipesapp.ui.recipe.adapter.RecipeListAdapter
+import com.csalex.recipesapp.ui.recipe.viewmodel.RecipeListViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -47,25 +51,23 @@ class RecipesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        context?.let {
-//            val recipes = RecipeRepository.getRecipes(it)
-//
-//            Log.d(TAG, "Number of recipes: ${recipes.size}")
-//
-//            for(recipe in recipes) {
-//                Log.d(TAG, "Recipe: ${recipe.name}")
-//            }
-//        }
-
-        val viewModel: RecipeListViewmodel = ViewModelProvider(this).get(RecipeListViewmodel::class.java)
+        val viewModel: RecipeListViewModel = ViewModelProvider(this)[RecipeListViewModel::class.java]
+        val recyclerView: RecyclerView = view.findViewById(R.id.recipesRecyclerView)
 
         context?.let { viewModel.fetchRecipeData(it) }
 
-        viewModel.recipeList.observe(viewLifecycleOwner) { recipes ->
+        viewModel.recipeList.observe(viewLifecycleOwner) { recipes: List<RecipeModel> ->
             for(recipe in recipes) {
                 Log.d(TAG, "Recipe name: ${recipe.name}")
                 Log.d(TAG, "Recipe description: ${recipe.name}")
+                Log.d(TAG, "Recipe instruction: ${recipe.instruction}")
                 Log.d(TAG, "----------")
+
+                val adapter = RecipeListAdapter(recipes, requireContext())
+
+                // Attach adapter to recycler view
+                recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+                recyclerView.adapter = adapter
             }
         }
     }

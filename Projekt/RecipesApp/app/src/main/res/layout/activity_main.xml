@@ -23,6 +23,9 @@
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:alpha="2"
+        app:itemIconTint="#598A72"
+        app:itemTextColor="#598A72"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:menu="@menu/app_menu" />

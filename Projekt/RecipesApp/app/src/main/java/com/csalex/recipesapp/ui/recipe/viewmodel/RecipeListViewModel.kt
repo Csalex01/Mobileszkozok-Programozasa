@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.csalex.recipesapp.repository.recipe.RecipeRepository
 import com.csalex.recipesapp.repository.recipe.model.RecipeModel
 
-class RecipeListViewmodel: ViewModel() {
+class RecipeListViewModel: ViewModel() {
 
     private val repository = RecipeRepository
 

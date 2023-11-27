@@ -8,7 +8,6 @@ import android.os.Handler
 import android.os.HandlerThread
 import android.util.Log
 import com.csalex.recipesapp.R
-import com.csalex.recipesapp.databinding.ActivitySplashBinding
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
