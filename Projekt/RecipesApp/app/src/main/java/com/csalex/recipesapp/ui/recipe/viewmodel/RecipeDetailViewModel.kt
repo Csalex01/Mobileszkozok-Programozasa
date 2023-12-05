@@ -9,13 +9,11 @@ import com.csalex.recipesapp.repository.recipe.model.RecipeModel
 class RecipeDetailViewModel: ViewModel() {
 
     private val repository = RecipeRepository
+    var recipe: MutableLiveData<RecipeModel> = MutableLiveData()
 
-    var recipeList: MutableLiveData<List<RecipeModel>> = MutableLiveData()
 
-    /*
-    fun fetchRecipeDetail(recipeId: Int) {
-        recipeList.value = repository.getRecipeById(recipeId)
+    fun fetchRecipeDetail(context: Context, recipeId: Int) {
+        recipe.value = repository.getRecipeById(context, recipeId)
     }
-     */
 
 }

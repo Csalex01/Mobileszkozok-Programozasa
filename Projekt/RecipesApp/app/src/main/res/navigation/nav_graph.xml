@@ -20,7 +20,11 @@
         android:id="@+id/profileFragment"
         android:name="com.csalex.recipesapp.ui.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_newRecipeFragment"
+            app:destination="@id/newRecipeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/recipesFragment"
         android:name="com.csalex.recipesapp.ui.recipe.RecipesFragment"
@@ -35,4 +39,9 @@
         android:name="com.csalex.recipesapp.ui.recipe.RecipeDetailFragment"
         android:label="fragment_recipe_detail"
         tools:layout="@layout/fragment_recipe_detail" />
+    <fragment
+        android:id="@+id/newRecipeFragment"
+        android:name="com.csalex.recipesapp.ui.recipe.NewRecipeFragment"
+        android:label="fragment_new_recipe"
+        tools:layout="@layout/fragment_new_recipe" />
 </navigation>

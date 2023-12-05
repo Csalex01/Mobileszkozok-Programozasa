@@ -1,9 +1,11 @@
 package com.csalex.recipesapp.ui.recipe.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -13,20 +15,33 @@ import com.csalex.recipesapp.repository.recipe.model.RecipeModel
 
 class RecipeListAdapter(
     private var recipeList: List<RecipeModel>,
-    private val context: Context
+    private val context: Context,
+    private val onItemClick: (RecipeModel) -> Unit,
+    private val onDetailsClick: (RecipeModel) -> Unit
 ): RecyclerView.Adapter<RecipeListAdapter.RecipeViewHolder>() {
 
-    class RecipeViewHolder(view: View): RecyclerView.ViewHolder (view){
+    inner class RecipeViewHolder(view: View): RecyclerView.ViewHolder (view){
+
         val titleView: TextView
         val descriptionView: TextView
         val imageView: ImageView
         val ratingsView: TextView
+        val ratingsButtonView: Button
 
         init {
-            titleView = view.findViewById(R.id.recipeTitle)
+            titleView = view.findViewById(R.id.detailRecipeTitle)
             descriptionView = view.findViewById(R.id.recipeDescription)
-            imageView = view.findViewById(R.id.recipePhoto)
+            imageView = view.findViewById(R.id.detailRecipePhoto)
             ratingsView = view.findViewById(R.id.recipeScore)
+            ratingsButtonView = view.findViewById(R.id.recipeDetailsButton)
+
+            view.setOnClickListener{
+                onItemClick(recipeList[adapterPosition])
+            }
+
+            ratingsButtonView.setOnClickListener {
+                onDetailsClick(recipeList[adapterPosition])
+            }
         }
     }
 
@@ -37,6 +52,7 @@ class RecipeListAdapter(
 
     override fun getItemCount(): Int = recipeList.size
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
         holder.titleView.text = recipeList[position].name
         holder.descriptionView.text = recipeList[position].description
@@ -51,5 +67,6 @@ class RecipeListAdapter(
             .placeholder(R.drawable.ic_launcher_foreground)
             .fallback(R.drawable.ic_launcher_foreground)
             .into(holder.imageView)
+
     }
 }

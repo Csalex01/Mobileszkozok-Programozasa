@@ -25,4 +25,8 @@ object RecipeRepository {
         return recipesResponse.results.toModelList()
     }
 
+    fun getRecipeById(context: Context, recipeId: Int): RecipeModel {
+        return getRecipes(context).first { it.id == recipeId }
+    }
+
 }
