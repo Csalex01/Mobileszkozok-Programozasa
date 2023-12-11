@@ -26,20 +26,20 @@ class RecipeListAdapter(
         val descriptionView: TextView
         val imageView: ImageView
         val ratingsView: TextView
-        val ratingsButtonView: Button
+        val detailsButtonView: Button
 
         init {
             titleView = view.findViewById(R.id.detailRecipeTitle)
             descriptionView = view.findViewById(R.id.recipeDescription)
             imageView = view.findViewById(R.id.detailRecipePhoto)
             ratingsView = view.findViewById(R.id.recipeScore)
-            ratingsButtonView = view.findViewById(R.id.recipeDetailsButton)
+            detailsButtonView = view.findViewById(R.id.recipeDetailsButton)
 
             view.setOnClickListener{
                 onItemClick(recipeList[adapterPosition])
             }
 
-            ratingsButtonView.setOnClickListener {
+            detailsButtonView.setOnClickListener {
                 onDetailsClick(recipeList[adapterPosition])
             }
         }

@@ -30,7 +30,6 @@ private const val ARG_PARAM2 = "param2"
 class RecipesFragment : Fragment() {
 
     private val TAG: String? = RecipesFragment::class.simpleName
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -43,7 +42,7 @@ class RecipesFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_recipes, container, false)
     }
 
-    private fun navigateToRecipeDetail(recipe: RecipeModel): Unit {
+    private fun navigateToRecipeDetail(recipe: RecipeModel) {
         findNavController()
             .navigate(
                 R.id.action_recipesFragment_to_recipeDetailFragment,
