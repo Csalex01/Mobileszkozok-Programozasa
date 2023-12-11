@@ -16,4 +16,8 @@ class RecipeListViewModel: ViewModel() {
         recipeList.value = repository.getRecipes(context)
     }
 
+    fun fetchMyRecipeData() {
+        recipeList.value = repository.getMyRecipes()
+    }
+
 }

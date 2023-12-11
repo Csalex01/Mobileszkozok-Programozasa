@@ -39,21 +39,20 @@ class RecipeDetailFragment : Fragment() {
         recipeId?.let { viewModel.fetchRecipeDetail(this.requireActivity(), it) }
 
         viewModel.recipe.observe(viewLifecycleOwner) { it ->
-            val currenRecipe = it
 
             ///////////////
             // Set title //
             ///////////////
 
             val titleView = view.findViewById<TextView>(R.id.detailRecipeTitle)
-            titleView.text = currenRecipe.name
+            titleView.text = it.name
 
             ////////////////////
             // Set description //
             ////////////////////
 
             val descriptionView = view.findViewById<TextView>(R.id.recipeDescription)
-            descriptionView.text = currenRecipe.description
+            descriptionView.text = it.description
 
             ///////////////
             // Set image //
@@ -62,7 +61,7 @@ class RecipeDetailFragment : Fragment() {
             val imageView = view.findViewById<ImageView>(R.id.detailRecipePhoto)
             context?.let { it1 ->
                 Glide.with(it1)
-                    .load(currenRecipe.thumbnailUrl)
+                    .load(it.thumbnailUrl)
                     .centerCrop()
                     .placeholder(R.drawable.ic_launcher_foreground)
                     .fallback(R.drawable.ic_launcher_foreground)
@@ -74,7 +73,8 @@ class RecipeDetailFragment : Fragment() {
             /////////////////
 
             val ratingsView = view.findViewById<TextView>(R.id.recipeScore)
-            val rating = String.format("%.2f", currenRecipe.userRating.score * 10).toDouble().toString()
+            val rating =
+                String.format("%.2f", it.userRating.score * 10).toDouble().toString()
             ratingsView.text = "$rating/10"
 
             //////////////////
@@ -82,7 +82,7 @@ class RecipeDetailFragment : Fragment() {
             //////////////////
 
             val servingsView = view.findViewById<TextView>(R.id.detailYieldsText)
-            servingsView.text = currenRecipe.yields.filter { it.isDigit() }
+            servingsView.text = it.yields.filter { it.isDigit() }
 
             //////////////////////
             // Set instructions //
@@ -92,7 +92,7 @@ class RecipeDetailFragment : Fragment() {
             instructionsView.text = ""
 
             var instructionCounter = 0
-            for(instruction: InstructionModel in currenRecipe.instruction) {
+            for (instruction: InstructionModel in it.instruction) {
                 Log.d(TAG, "Instruction: ${instruction}")
 
                 val minutes = (instruction.time.endTime - instruction.time.startTime) / 60 / 60
@@ -103,7 +103,7 @@ class RecipeDetailFragment : Fragment() {
                     instructionsView.append("Time: $minutes minutes.\n\n")
                 }
 
-                if (instructionCounter != currenRecipe.instruction.size - 1) {
+                if (instructionCounter != it.instruction.size - 1) {
                     instructionsView.append("--------------------\n\n")
                 }
 
@@ -118,10 +118,10 @@ class RecipeDetailFragment : Fragment() {
             keywordsView.text = ""
 
             var keywordCounter = 0
-            val keywords = currenRecipe.keywords?.split(",")!!
+            val keywords = it.keywords?.split(",")!!
 
-            for(keyword in keywords) {
-                if(keywordCounter != keywords.size - 1)
+            for (keyword in keywords) {
+                if (keywordCounter != keywords.size - 1)
                     keywordsView.append("${keyword.replaceFirstChar { it.uppercase() }}, ")
                 else
                     keywordsView.append("${keyword.replaceFirstChar { it.uppercase() }}.")
@@ -134,7 +134,7 @@ class RecipeDetailFragment : Fragment() {
             ///////////////
 
             val webView = view.findViewById<android.webkit.WebView>(R.id.videoWebView)
-            currenRecipe.originalVideoUrl?.let { it1 -> webView.loadUrl(it1) }
+            it.originalVideoUrl?.let { it1 -> webView.loadUrl(it1) }
 
 //            webView.settings.loadWithOverviewMode = true
 //            webView.settings.useWideViewPort = true

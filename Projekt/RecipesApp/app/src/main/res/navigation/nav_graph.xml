@@ -43,5 +43,9 @@
         android:id="@+id/newRecipeFragment"
         android:name="com.csalex.recipesapp.ui.recipe.NewRecipeFragment"
         android:label="fragment_new_recipe"
-        tools:layout="@layout/fragment_new_recipe" />
+        tools:layout="@layout/fragment_new_recipe" >
+        <action
+            android:id="@+id/action_newRecipeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
 </navigation>

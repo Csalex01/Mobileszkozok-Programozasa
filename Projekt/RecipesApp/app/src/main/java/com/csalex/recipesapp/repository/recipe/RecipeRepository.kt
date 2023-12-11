@@ -10,6 +10,7 @@ import com.google.gson.Gson
 object RecipeRepository {
 
     private val TAG: String? = RecipeRepository::class.simpleName
+    private var myRecipes : List<RecipeModel>? = emptyList()
 
     fun getRecipes(context: Context): List<RecipeModel> {
         lateinit var jsonString: String
@@ -28,5 +29,11 @@ object RecipeRepository {
     fun getRecipeById(context: Context, recipeId: Int): RecipeModel {
         return getRecipes(context).first { it.id == recipeId }
     }
+
+    fun insertMyRecipe(recipe: RecipeModel) {
+        myRecipes = myRecipes?.plus(recipe)
+    }
+
+    fun getMyRecipes() : List<RecipeModel>? = this.myRecipes
 
 }

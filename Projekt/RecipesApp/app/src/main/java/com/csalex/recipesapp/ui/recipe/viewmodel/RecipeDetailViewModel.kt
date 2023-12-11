@@ -11,7 +11,6 @@ class RecipeDetailViewModel: ViewModel() {
     private val repository = RecipeRepository
     var recipe: MutableLiveData<RecipeModel> = MutableLiveData()
 
-
     fun fetchRecipeDetail(context: Context, recipeId: Int) {
         recipe.value = repository.getRecipeById(context, recipeId)
     }
