@@ -64,24 +64,24 @@ class RecipesFragment : Fragment() {
                 Log.d(TAG, "Recipe description: ${recipe.name}")
                 Log.d(TAG, "Recipe instruction: ${recipe.instruction}")
                 Log.d(TAG, "----------")
-
-                val adapter = RecipeListAdapter(
-                    recipes,
-                    requireContext(),
-
-                    onItemClick = {
-                            currentRecipe: RecipeModel -> navigateToRecipeDetail(currentRecipe)
-                    },
-
-                    onDetailsClick = {
-                            currentRecipe: RecipeModel -> navigateToRecipeDetail(currentRecipe)
-                    }
-                )
-
-                // Attach adapter to recycler view
-                recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-                recyclerView.adapter = adapter
             }
+
+            val adapter = RecipeListAdapter(
+                recipes,
+                requireContext(),
+
+                onItemClick = {
+                        currentRecipe: RecipeModel -> navigateToRecipeDetail(currentRecipe)
+                },
+
+                onDetailsClick = {
+                        currentRecipe: RecipeModel -> navigateToRecipeDetail(currentRecipe)
+                }
+            )
+
+            // Attach adapter to recycler view
+            recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            recyclerView.adapter = adapter
         }
     }
 
