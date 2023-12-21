@@ -1,5 +1,6 @@
 package com.csalex.recipesapp.ui.recipe
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.csalex.recipesapp.R
+import com.csalex.recipesapp.databinding.FragmentRecipesBinding
 import com.csalex.recipesapp.repository.recipe.model.RecipeModel
 import com.csalex.recipesapp.ui.recipe.adapter.RecipeListAdapter
 import com.csalex.recipesapp.ui.recipe.viewmodel.RecipeListViewModel
@@ -30,6 +32,8 @@ private const val ARG_PARAM2 = "param2"
 class RecipesFragment : Fragment() {
 
     private val TAG: String? = RecipesFragment::class.simpleName
+    private lateinit var binding: FragmentRecipesBinding;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -39,7 +43,10 @@ class RecipesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_recipes, container, false)
+//        return inflater.inflate(R.layout.fragment_recipes, container, false)
+
+        binding = FragmentRecipesBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     private fun navigateToRecipeDetail(recipe: RecipeModel) {
@@ -50,11 +57,13 @@ class RecipesFragment : Fragment() {
             )
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val viewModel: RecipeListViewModel = ViewModelProvider(this)[RecipeListViewModel::class.java]
         val recyclerView: RecyclerView = view.findViewById(R.id.recipesRecyclerView)
+        var adapter: RecipeListAdapter = RecipeListAdapter(listOf(), requireContext(), {}, {})
 
         context?.let { viewModel.fetchRecipeData(it) }
 
@@ -66,7 +75,7 @@ class RecipesFragment : Fragment() {
                 Log.d(TAG, "----------")
             }
 
-            val adapter = RecipeListAdapter(
+            adapter = RecipeListAdapter(
                 recipes,
                 requireContext(),
 
@@ -83,25 +92,23 @@ class RecipesFragment : Fragment() {
             recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             recyclerView.adapter = adapter
         }
-    }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment RecipesFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            RecipesFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+        binding.searchButton.setOnClickListener {
+            val searchTextView = binding.searchTextView
+            val searchText = searchTextView.text.toString()
+
+//            val viewModel: RecipeListViewModel = ViewModelProvider(this)[RecipeListViewModel::class.java]
+            val filteredRecipes = viewModel.recipeList.value?.filter { recipe ->
+                recipe.name.contains(searchText, ignoreCase = true)
             }
+
+            Log.d(TAG, "Filtered recipes: $filteredRecipes")
+
+            if(filteredRecipes == null)  return@setOnClickListener
+
+            adapter.recipeList = filteredRecipes
+            adapter.notifyDataSetChanged()
+
+        }
     }
 }

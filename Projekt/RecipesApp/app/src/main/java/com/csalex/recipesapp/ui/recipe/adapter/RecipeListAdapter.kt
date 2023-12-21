@@ -14,7 +14,7 @@ import com.csalex.recipesapp.R
 import com.csalex.recipesapp.repository.recipe.model.RecipeModel
 
 class RecipeListAdapter(
-    private var recipeList: List<RecipeModel>,
+    var recipeList: List<RecipeModel>,
     private val context: Context,
     private val onItemClick: (RecipeModel) -> Unit,
     private val onDetailsClick: (RecipeModel) -> Unit
