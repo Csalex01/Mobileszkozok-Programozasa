@@ -68,9 +68,6 @@ class ProfileFragment : Fragment() {
             }
         }
 
-//        for(recipe in myRecipes) {
-//            Log.d(TAG, "Recipe: $recipe")
-//        }
 
         binding.addFloatingActionButton.setOnClickListener {
             Log.d(TAG, "Clicked")
