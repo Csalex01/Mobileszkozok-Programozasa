@@ -97,7 +97,6 @@ class RecipesFragment : Fragment() {
             val searchTextView = binding.searchTextView
             val searchText = searchTextView.text.toString()
 
-//            val viewModel: RecipeListViewModel = ViewModelProvider(this)[RecipeListViewModel::class.java]
             val filteredRecipes = viewModel.recipeList.value?.filter { recipe ->
                 recipe.name.contains(searchText, ignoreCase = true)
             }
@@ -108,7 +107,15 @@ class RecipesFragment : Fragment() {
 
             adapter.recipeList = filteredRecipes
             adapter.notifyDataSetChanged()
+        }
 
+        binding.sortByRatingsButton.setOnClickListener {
+            val sortedRecipes = viewModel.recipeList.value?.sortedByDescending { recipe ->
+                recipe.userRating.score
+            } ?: return@setOnClickListener
+
+            adapter.recipeList = sortedRecipes
+            adapter.notifyDataSetChanged()
         }
     }
 }
